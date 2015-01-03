@@ -20,9 +20,9 @@ class SessionConverterExtension extends CompilerExtension
 {
 
 	/** @var array */
-	public $defaults = array(
-		'entities' => array(),
-	);
+	public $defaults = [
+		'entities' => [],
+	];
 
 	public function loadConfiguration()
 	{
