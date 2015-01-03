@@ -30,9 +30,7 @@ class SessionConverterExtension extends CompilerExtension
 		$config = $this->getConfig($this->defaults);
 
 		$builder->addDefinition($this->prefix('sessionConverter'))
-			->setClass('Arachne\SessionConverter\SessionConverter', [
-				'types' => $config['entities'],
-			])
+			->setClass('Arachne\SessionConverter\EntityLoader\SessionConverter')
 			->addTag(EntityLoaderExtension::TAG_CONVERTER, $config['entities']);
 	}
 

@@ -8,10 +8,11 @@
  * For the full copyright and license information, please view the file license.md that was distributed with this source code.
  */
 
-namespace Arachne\SessionConverter;
+namespace Arachne\SessionConverter\EntityLoader;
 
+use Arachne\SessionConverter\EntityLoader\SessionEntityInterface;
 use Arachne\SessionConverter\Exception\InvalidArgumentException;
-use Arachne\EntityLoader\IConverter;
+use Arachne\EntityLoader\ConverterInterface;
 use Nette\Application\BadRequestException;
 use Nette\Http\Session;
 use Nette\Object;
@@ -20,46 +21,27 @@ use Nette\Utils\Random;
 /**
  * @author Jáchym Toušek
  */
-class SessionConverter extends Object implements IConverter
+class SessionConverter extends Object implements ConverterInterface
 {
-
-	/** @var string[] */
-	protected $types;
 
 	/** @var Session */
 	protected $session;
 
 	/**
-	 * @param string[] $types
 	 * @param Session $session
 	 */
-	public function __construct(array $types, Session $session)
+	public function __construct(Session $session)
 	{
-		foreach ($types as $type) {
-			if (!is_subclass_of($type, 'Arachne\SessionConverter\ISessionEntity')) {
-				throw new InvalidArgumentException("Type '$type' does not implement Arachne\SessionConverter\ISessionEntity.");
-			}
-		}
-		$this->types = $types;
 		$this->session = $session;
 	}
 
 	/**
 	 * @param string $type
-	 * @return bool
-	 */
-	public function canConvert($type)
-	{
-		return in_array($type, $this->types, TRUE);
-	}
-
-	/**
-	 * @param string $type
 	 * @param mixed $value
-	 * @return object
+	 * @return SessionEntityInterface
 	 * @throws BadRequestException
 	 */
-	public function parameterToEntity($type, $value)
+	public function filterIn($type, $value)
 	{
 		$entity = $this->session->getSection('Arachne.SessionConverter')->$value;
 		if (!$entity instanceof $type) {
@@ -70,10 +52,10 @@ class SessionConverter extends Object implements IConverter
 
 	/**
 	 * @param string $type
-	 * @param object $entity
+	 * @param SessionEntityInterface $entity
 	 * @return string
 	 */
-	public function entityToParameter($type, $entity)
+	public function filterOut($type, $entity)
 	{
 		if (!$entity instanceof $type) {
 			throw new InvalidArgumentException("Given entity is not instance of '$type'.");
