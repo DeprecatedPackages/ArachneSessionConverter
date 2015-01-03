@@ -2,10 +2,11 @@
 	"name": "arachne/session-converter",
 	"type": "library",
 	"keywords": [ "nette", "arachne" ],
+	"homepage": "http://enumag.cz",
 	"authors": [
 		{
 			"name": "Jáchym Toušek",
-			"homepage": "http://m33.cz/",
+			"homepage": "http://enumag.cz",
 			"email": "enumag@gmail.com"
 		}
 	],
