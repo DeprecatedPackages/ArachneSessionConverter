@@ -19,7 +19,7 @@ use Nette\Object;
 use Nette\Utils\Random;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 class SessionConverter extends Object implements ConverterInterface
 {

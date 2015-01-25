@@ -14,7 +14,7 @@ use Arachne\EntityLoader\DI\EntityLoaderExtension;
 use Nette\DI\CompilerExtension;
 
 /**
- * @author Jáchym Toušek
+ * @author Jáchym Toušek <enumag@gmail.com>
  */
 class SessionConverterExtension extends CompilerExtension
 {
