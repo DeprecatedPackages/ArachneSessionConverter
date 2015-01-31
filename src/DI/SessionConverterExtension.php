@@ -21,7 +21,9 @@ class SessionConverterExtension extends CompilerExtension
 
 	/** @var array */
 	public $defaults = [
-		'entities' => [],
+		'entities' => [
+			'Arachne\SessionConverter\EntityLoader\SessionEntity',
+		],
 	];
 
 	public function loadConfiguration()
