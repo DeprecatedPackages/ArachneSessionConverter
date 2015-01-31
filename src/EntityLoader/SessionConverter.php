@@ -55,17 +55,19 @@ class SessionConverter extends Object implements ConverterInterface
 	 * @param SessionEntityInterface $entity
 	 * @return string
 	 */
-	public function filterOut($type, $entity)
+	public function filterOut($type, $value)
 	{
-		if (!$entity instanceof $type) {
-			throw new InvalidArgumentException("Given entity is not instance of '$type'.");
+		if (!$value instanceof SessionEntityInterface) {
+			throw new InvalidArgumentException("Given entity is not instance of 'Arachne\SessionConverter\EntityLoader\SessionEntityInterface'.");
 		}
-		if (!$entity->getSessionKey()) {
-			$key = Random::generate(4);
-			$entity->setSessionKey($key);
-			$this->session->getSection('Arachne.SessionConverter')->$key = $entity;
+		if (!$value->getSessionKey()) {
+			do {
+				$key = Random::generate(10);
+			} while (isset($this->session->getSection('Arachne.SessionConverter')->$key));
+			$value->setSessionKey($key);
+			$this->session->getSection('Arachne.SessionConverter')->$key = $value;
 		}
-		return $entity->getSessionKey();
+		return $value->getSessionKey();
 	}
 
 }
