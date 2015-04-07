@@ -12,7 +12,8 @@ namespace Arachne\SessionConverter\EntityLoader;
 
 use Arachne\SessionConverter\EntityLoader\SessionEntityInterface;
 use Arachne\SessionConverter\Exception\InvalidArgumentException;
-use Arachne\EntityLoader\ConverterInterface;
+use Arachne\EntityLoader\FilterInInterface;
+use Arachne\EntityLoader\FilterOutInterface;
 use Nette\Application\BadRequestException;
 use Nette\Http\Session;
 use Nette\Object;
@@ -21,7 +22,7 @@ use Nette\Utils\Random;
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
  */
-class SessionConverter extends Object implements ConverterInterface
+class SessionConverter extends Object implements FilterInInterface, FilterOutInterface
 {
 
 	/** @var Session */
@@ -36,26 +37,20 @@ class SessionConverter extends Object implements ConverterInterface
 	}
 
 	/**
-	 * @param string $type
 	 * @param mixed $value
 	 * @return SessionEntityInterface
 	 * @throws BadRequestException
 	 */
-	public function filterIn($type, $value)
+	public function filterIn($value)
 	{
-		$entity = $this->session->getSection('Arachne.SessionConverter')->$value;
-		if (!$entity instanceof $type) {
-			throw new BadRequestException("Desired entity of type '$type' could not be found.");
-		}
-		return $entity;
+		return $this->session->getSection('Arachne.SessionConverter')->$value;
 	}
 
 	/**
-	 * @param string $type
 	 * @param SessionEntityInterface $entity
 	 * @return string
 	 */
-	public function filterOut($type, $value)
+	public function filterOut($value)
 	{
 		if (!$value instanceof SessionEntityInterface) {
 			throw new InvalidArgumentException("Given entity is not instance of 'Arachne\SessionConverter\EntityLoader\SessionEntityInterface'.");
