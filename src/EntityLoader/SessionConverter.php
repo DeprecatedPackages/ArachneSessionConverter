@@ -61,6 +61,7 @@ class SessionConverter extends Object implements FilterInInterface, FilterOutInt
 			} while (isset($this->session->getSection('Arachne.SessionConverter')->$key));
 			$value->setSessionKey($key);
 			$this->session->getSection('Arachne.SessionConverter')->$key = $value;
+			$this->session->getSection('Arachne.SessionConverter')->setExpiration('1 hour', $key);
 		}
 		return $value->getSessionKey();
 	}
