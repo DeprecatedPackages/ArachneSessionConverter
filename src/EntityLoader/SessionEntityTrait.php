@@ -10,22 +10,37 @@
 
 namespace Arachne\SessionConverter\EntityLoader;
 
-use Arachne\EntityLoader\EntityInterface;
-
 /**
  * @author Jáchym Toušek <enumag@gmail.com>
  */
-interface SessionEntityInterface extends EntityInterface
+trait SessionEntityTrait
 {
+
+	/** @var string */
+	private $sessionKey;
 
 	/**
 	 * @return string
 	 */
-	public function getSessionKey();
+	public function getSessionKey()
+	{
+		return $this->sessionKey;
+	}
 
 	/**
 	 * @param string $key
 	 */
-	public function setSessionKey($key);
+	public function setSessionKey($key)
+	{
+		$this->sessionKey = $key;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBaseType()
+	{
+		return 'Arachne\SessionConverter\EntityLoader\SessionEntityInterface';
+	}
 
 }

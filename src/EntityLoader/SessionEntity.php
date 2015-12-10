@@ -18,29 +18,12 @@ use ArrayObject;
 class SessionEntity extends ArrayObject implements SessionEntityInterface
 {
 
-	/** @var string */
-	private $sessionKey;
+	use SessionEntityTrait;
 
 	public function __construct($input = [])
 	{
 		parent::__construct($input);
 		$this->setFlags(ArrayObject::ARRAY_AS_PROPS);
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getSessionKey()
-	{
-		return $this->sessionKey;
-	}
-
-	/**
-	 * @param string $key
-	 */
-	public function setSessionKey($key)
-	{
-		$this->sessionKey = $key;
 	}
 
 }
