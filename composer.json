@@ -21,11 +21,5 @@
 		"psr-4": {
 			"Arachne\\SessionConverter\\": "src"
 		}
-	},
-	"repositories": [
-		{
-			"type": "composer",
-			"url": "http://packages.m33.cz"
-		}
-	]
+	}
 }
